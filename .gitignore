@@ -1,16 +1,4 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
 
-# C extensions
-*.so
-
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
@@ -129,3 +117,10 @@ dmypy.json
 .pyre/
 
 .idea/*
+lib64/*
+lib64
+/lib64/*
+
+bin/*
+
+pyvenv.cfg
