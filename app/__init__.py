@@ -1,7 +1,11 @@
 from flask import Flask, render_template, redirect, jsonify
+
+from app.config.MongoJSONEncoder import MongoJSONEncoder
+from app.config.ObjectIdConverter import ObjectIdConverter
 from app.repository import SampleDataRepository
 from app.repository import CartRepository
 from app.repository import LocalizationRepository
+from app.repository import DriveRepository
 
 app = Flask(__name__)
 
@@ -9,6 +13,8 @@ app = Flask(__name__)
 def startApp(config):
     # Use configuration defined on the config.py
     app.config.from_object(config)
+    app.json_encoder = MongoJSONEncoder
+    app.url_map.converters['objectid'] = ObjectIdConverter
     return app
 
 
@@ -29,6 +35,19 @@ def findAllLocalizations():
     localizations = LocalizationRepository.LocalizationRepository(app).findAllCartsLocalization()
     return jsonify([localization for localization in localizations])
 
+
+# Route to get car location details
+# @param plaque
+@app.route("/localization-detail/<plaque>", methods=["GET"])
+def cartLocalization(plaque):
+    currentLocalization = LocalizationRepository.LocalizationRepository(app).findCurrentLocalizationByCart(plaque)
+    localizationHistory = LocalizationRepository.LocalizationRepository(app).findLocalizationHistoryByCart(plaque)
+    drive = DriveRepository.DriveRepository(app).findByCart(plaque)
+    return jsonify({
+        "drive": drive,
+        "currentLocalization": currentLocalization,
+        "localizationHistory": [localization for localization in localizationHistory]
+    })
 
 ###############################################################
 # DEFINE RENDERS TEMPLATES END POINTS
