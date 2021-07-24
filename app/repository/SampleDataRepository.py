@@ -68,3 +68,35 @@ class SampleDataRepository:
                 "date": datetime.now()
             }
         ])
+
+        # Crete drive sample data
+        self.connection.db.drive.insert_many([
+            {
+                "vehicle": "WTO304",
+                "licence_id": "2325487884054",
+                "first_name": "Andres",
+                "last_name": "Castellanos",
+                "photo": "profile.png",
+            },
+            {
+                "vehicle": "WTM856",
+                "licence_id": "2325487884054",
+                "first_name": "Andres",
+                "last_name": "Castellanos",
+                "photo": "profile.png",
+            },
+            {
+                "vehicle": "REM098",
+                "licence_id": "2325487884054",
+                "first_name": "Andres",
+                "last_name": "Castellanos",
+                "photo": "profile.png",
+            },
+            {
+                "vehicle": "GHT001",
+                "licence_id": "2325487884054",
+                "first_name": "Andres",
+                "last_name": "Castellanos",
+                "photo": "profile.png",
+            }
+        ])
