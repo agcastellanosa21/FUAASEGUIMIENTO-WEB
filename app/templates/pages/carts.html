@@ -1,0 +1,32 @@
+{% extends './base.html' %}
+
+{% block container %}
+
+    <div class="container">
+        <div class="row">
+            {% for cart in carts %}
+            <div class="col-sm-4 mt-5">
+                <div class="card">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                          <img src="{{ 'static/images/' + cart.image_name }}" class="img-fluid rounded-start" alt="Cart Image">
+                        </div>
+                        <div class="col-md-8">
+                          <div class="card-body">
+                            <h5 class="card-title">{{ cart.plaque }}</h5>
+                            <p class="card-text">{{ cart.characteristic }}</p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <a class="btn btn-primary btn-sm" href="#">Ubicación</a>
+                                </small>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
