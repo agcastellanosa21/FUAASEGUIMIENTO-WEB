@@ -55,7 +55,6 @@ var WebService = function() {
             url: '/localization-detail/' + plaque,
             cache: false,
             success: function (response) {
-                console.log(response);
                 //Clear all markets on the map
                 HereMap.removeAllMarkets();
 
@@ -75,7 +74,7 @@ var WebService = function() {
                         $('#localizations')
                         .append(
                             "<tr>" +
-                            "   <td class='text-left location-label' width='60%'>" +
+                            "   <td class='text-left location-label' width='55%'>" +
                             "       <a class='text-decoration-none'>" + value.latitude + ", " + value.longitude + "</a>" +
                             "   </td>" +
                             "   <td class='text-right location-label' width='40%'>" + value.date.replace('T', ' ') + "</td>" +
