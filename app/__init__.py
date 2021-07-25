@@ -39,12 +39,11 @@ def findAllLocalizations():
 # Route to get car location details
 # @param plaque
 @app.route("/localization-detail/<plaque>", methods=["GET"])
-def cartLocalization(plaque):
+def cartLocalizationDetail(plaque):
     currentLocalization = LocalizationRepository.LocalizationRepository(app).findCurrentLocalizationByCart(plaque)
     localizationHistory = LocalizationRepository.LocalizationRepository(app).findLocalizationHistoryByCart(plaque)
-    drive = DriveRepository.DriveRepository(app).findByCart(plaque)
+
     return jsonify({
-        "drive": drive,
         "currentLocalization": currentLocalization,
         "localizationHistory": [localization for localization in localizationHistory]
     })
@@ -52,6 +51,14 @@ def cartLocalization(plaque):
 ###############################################################
 # DEFINE RENDERS TEMPLATES END POINTS
 ###############################################################
+
+
+# Route to render the cart location detail view
+# @param plate
+@app.route("/cart-localization/<plaque>", methods=["GET"])
+def cartLocalization(plaque):
+    drive = DriveRepository.DriveRepository(app).findByCart(plaque)
+    return render_template("pages/cart-localization.html", plaque=plaque, drive=drive)
 
 
 # Route to render cart list
