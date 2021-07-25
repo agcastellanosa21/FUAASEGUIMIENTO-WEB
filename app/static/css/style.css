@@ -1,0 +1,22 @@
+.avatar {
+    border: 0.3rem solid rgba(#fff, 0.3);
+    margin-top: -6rem;
+    margin-bottom: 1rem;
+    max-width: 7rem;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.location-label {
+    font-size: 14px;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
