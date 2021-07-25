@@ -1,0 +1,43 @@
+{% extends './base.html' %}
+
+{% block container %}
+
+    <div class="row mt-3">
+        <div class="col-sm-3">
+            <div class="card ms-5" style="width: 25rem; height: 55rem">
+                <img src="{{ url_for('static', filename='images/background.png') }}" class="card-img-top" alt="...">
+                <div class="card-body text-center">
+                    <img class="avatar rounded-circle" src="{{ url_for('static', filename='images/' + drive.photo) }}" alt="Bologna">
+                    <h4 class="card-title">{{ drive.first_name + ' ' + drive.last_name }}</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ drive.vehicle }}</h6>
+
+                    <div class="text-center mt-5">
+                        <p class="text-muted" style="font-size: 11px">HISTORIAL UBICACIONES</p>
+                        <div class="table-responsive" style="height: 50vh;" id="location-history">
+                            <table id="localizations" width="95%">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-9" style="width: 75vw; height: 91vh;" id="mapContainer"></div>
+    </div>
+
+    <script type="text/javascript">
+        //Document Ready Event Listener
+        document.addEventListener("DOMContentLoaded", function() {
+            //Init here map
+            HereMap.init(14.5);
+            //Localize cart
+            WebService.localizeCart('{{ plaque }}');
+            //new PerfectScrollbar('#location-history');
+            //Create interval for update localization of the cart in the map ever 10 seconds
+            setInterval(function() {
+                WebService.localizeCart('{{ plaque }}');
+            }, 10000);
+        });
+    </script>
+
+{% endblock %}

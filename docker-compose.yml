@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    command: python manage.py runserver
+    ports:
+      - "8001:8001"
+    volumes:
+      - .:/seguimiento-gps
