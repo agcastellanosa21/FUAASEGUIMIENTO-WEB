@@ -1,4 +1,5 @@
-from flask import Flask, render_template, redirect, jsonify
+from flask import Flask, render_template, redirect, jsonify, request
+from datetime import datetime
 
 from app.config.MongoJSONEncoder import MongoJSONEncoder
 from app.config.ObjectIdConverter import ObjectIdConverter
@@ -48,6 +49,49 @@ def cartLocalizationDetail(plaque):
         "localizationHistory": [localization for localization in localizationHistory]
     })
 
+
+# Route for creating locations
+@app.route("/create-localization", methods=["POST"])
+def createLocalization():
+    body = request.get_json()
+
+    if "longitude" not in body:
+        return jsonify({
+            "status": "Bad Request",
+            "message": "The longitude is required",
+            "date": datetime.now()
+        }), 400
+
+    if "latitude" not in body:
+        return jsonify({
+            "status": "Bad Request",
+            "message": "The latitude is required",
+            "date": datetime.now()
+        }), 400
+
+    if "gps_trace" not in body:
+        return jsonify({
+            "status": "Bad Request",
+            "message": "The gps_trace is required",
+            "date": datetime.now()
+        }), 400
+
+    if "vehicle" not in body:
+        return jsonify({
+            "status": "Bad Request",
+            "message": "The vehicle is required",
+            "date": datetime.now()
+        }), 400
+
+    LocalizationRepository.LocalizationRepository(app).create(body)
+
+    return jsonify({
+        "status": "Ok",
+        "message": "Location created successfully",
+        "date": datetime.now()
+    }), 200
+
+
 ###############################################################
 # DEFINE RENDERS TEMPLATES END POINTS
 ###############################################################
@@ -72,5 +116,3 @@ def findAllCarts():
 @app.route("/", methods=["GET"])
 def index():
     return render_template("index.html")
-
-
