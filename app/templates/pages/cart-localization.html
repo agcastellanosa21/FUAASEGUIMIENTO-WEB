@@ -13,8 +13,10 @@
 
                     <div class="text-center mt-5">
                         <p class="text-muted" style="font-size: 11px">HISTORIAL UBICACIONES</p>
-                        <table id="localizations" width="100%">
-                        </table>
+                        <div class="table-responsive" style="height: 50vh;" id="location-history">
+                            <table id="localizations" width="95%">
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -30,6 +32,7 @@
             HereMap.init(14.5);
             //Localize cart
             WebService.localizeCart('{{ plaque }}');
+            //new PerfectScrollbar('#location-history');
             //Create interval for update localization of the cart in the map ever 10 seconds
             setInterval(function() {
                 WebService.localizeCart('{{ plaque }}');
