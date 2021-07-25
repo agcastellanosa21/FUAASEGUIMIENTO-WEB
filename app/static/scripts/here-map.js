@@ -19,7 +19,7 @@ var HereMap = function() {
     }
 
     return {
-        init: function() {
+        init: function(zoom) {
             platform = new H.service.Platform({
                 'apikey': 'V0R3EObBSStxnX5MgnFl6p76Ip0KMus2VQCZm66HvUQ'
             });
@@ -33,7 +33,7 @@ var HereMap = function() {
             document.getElementById('mapContainer'),
             defaultLayers.vector.normal.map,
             {
-                zoom: 8,
+                zoom: zoom,
                 center: { lat: lat, lng: lng }
             });
 
