@@ -92,6 +92,45 @@ def createLocalization():
     }), 200
 
 
+# Route for creating locations GET method
+@app.route("/create-localization/<longitude>/<latitude>/<vehicle>", methods=["GET"])
+def createLocalizationGet(longitude, latitude, vehicle):
+    if not longitude:
+        return jsonify({
+            "status": "Bad Request",
+            "message": "The longitude is required",
+            "date": datetime.now()
+        }), 400
+
+    if not latitude:
+        return jsonify({
+            "status": "Bad Request",
+            "message": "The latitude is required",
+            "date": datetime.now()
+        }), 400
+
+    if not vehicle:
+        return jsonify({
+            "status": "Bad Request",
+            "message": "The vehicle is required",
+            "date": datetime.now()
+        }), 400
+
+    body = {
+        "longitude": longitude,
+        "latitude": latitude,
+        "vehicle": vehicle,
+        "gps_trace": ""
+    }
+    LocalizationRepository.LocalizationRepository(app).create(body)
+
+    return jsonify({
+        "status": "Ok",
+        "message": "Location created successfully",
+        "date": datetime.now()
+    }), 200
+
+
 ###############################################################
 # DEFINE RENDERS TEMPLATES END POINTS
 ###############################################################
